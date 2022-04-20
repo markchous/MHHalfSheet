@@ -17,32 +17,34 @@ public protocol HalfSheetStyle {
     var cornerRadius: CGFloat { get }
 }
 
-struct DefaultStyle: HalfSheetStyle {
-    var overlayColor: Color {
+public struct DefaultStyle: HalfSheetStyle {
+    public var overlayColor: Color {
         .black
     }
     
-    var backgroundColor: Color {
+    public var backgroundColor: Color {
         .white
     }
     
-    var closeImage: String {
+    public var closeImage: String {
         "x.circle.full"
     }
     
-    var closeImageColor: Color {
+    public var closeImageColor: Color {
         .black
     }
     
-    var disableDragDismiss: Bool {
+    public var disableDragDismiss: Bool {
         false
     }
     
-    var disableCardView: Bool {
+    public var disableCardView: Bool {
         false
     }
     
-    var cornerRadius: CGFloat {
+    public var cornerRadius: CGFloat {
         20.0
     }
+    
+    public init() { }
 }

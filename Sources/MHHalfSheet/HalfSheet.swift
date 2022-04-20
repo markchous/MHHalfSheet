@@ -10,20 +10,32 @@ import SwiftUI
 public struct HalfSheet<Sheet>: ViewModifier where Sheet: View {
     @State var dragOffset: CGFloat = 0
     @Binding var isPresented: Bool
+    
     var style: HalfSheetStyle
     var sheet: () -> Sheet
     
+    var dragOffsetDismiss: CGFloat {
+        style.dragOffset ?? Constants.dragOffsetDismiss
+    }
+    var paddingValue: CGFloat {
+        style.padding ?? Constants.padding
+    }
+    var cornerRadius: CGFloat {
+        style.cornerRadius ?? Constants.cornerRadius
+    }
+    var opacity: Double {
+        style.opacity ?? Constants.opacity
+    }
     var dragGesture: some Gesture {
         return DragGesture()
             .onChanged { value in
-                print(value.translation.height)
                 let offset = value.translation.height
                 if offset > 0 {
                     dragOffset = value.translation.height
                 }
             }
             .onEnded { value in
-                if dragOffset >= 150 {
+                if dragOffset >= dragOffsetDismiss {
                     dismiss()
                 } else {
                     dragOffset = 0
@@ -44,26 +56,28 @@ public struct HalfSheet<Sheet>: ViewModifier where Sheet: View {
             
             if isPresented {
                 style.overlayColor
-                    .opacity(0.8)
+                    .opacity(opacity)
                     .ignoresSafeArea()
                 
                 VStack(alignment: .leading) {
-                    Button {
-                        dismiss()
-                    } label: {
-                        Image(systemName: style.closeImage)
-                            .foregroundColor(style.closeImageColor)
+                    if let closeImage = style.closeImage {
+                        Button {
+                            dismiss()
+                        } label: {
+                            Image(systemName: closeImage)
+                                .foregroundColor(style.closeImageColor)
+                        }
+                        .padding(.horizontal, paddingValue)
+                        .padding(.top, paddingValue)
                     }
-                    .padding(.horizontal, 16)
-                    .padding(.top, 16)
                     
                     sheet()
-                        .padding(.bottom, 16)
+                        .padding(.bottom, paddingValue)
                 }
                 .background(style.backgroundColor)
                 .if(!style.disableCardView, transform: { view in
                     view
-                        .cardView(cornerRadius: style.cornerRadius)
+                        .cardView(cornerRadius: cornerRadius)
                 })
                 .frame(
                     minWidth: 0,
@@ -86,8 +100,8 @@ public struct HalfSheet<Sheet>: ViewModifier where Sheet: View {
 
 extension View {
     public func halfSheet<Sheet: View>(isPresented: Binding<Bool>,
-                                style: HalfSheetStyle = DefaultStyle(),
+                                style: HalfSheetStyle? = nil,
                                 @ViewBuilder sheet: @escaping () -> Sheet) -> some View {
-        modifier(HalfSheet(isPresented: isPresented, style: style, sheet: sheet))
+        modifier(HalfSheet(isPresented: isPresented, style: style ?? DefaultStyle(), sheet: sheet))
     }
 }

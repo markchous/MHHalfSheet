@@ -61,7 +61,10 @@ public struct HalfSheet<Sheet>: ViewModifier where Sheet: View {
                         .padding(.bottom, 16)
                 }
                 .background(style.backgroundColor)
-                .cardView(cornerRadius: style.cornerRadius)
+                .if(!style.disableCardView, transform: { view in
+                    view
+                        .cardView(cornerRadius: style.cornerRadius)
+                })
                 .frame(
                     minWidth: 0,
                     maxWidth: .infinity,

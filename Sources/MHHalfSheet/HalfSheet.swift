@@ -8,9 +8,35 @@
 import SwiftUI
 
 public struct HalfSheet<Sheet>: ViewModifier where Sheet: View {
+    @State var dragOffset: CGFloat = 0
     @Binding var isPresented: Bool
     var style: HalfSheetStyle
     var sheet: () -> Sheet
+    
+    var dragGesture: some Gesture {
+        return DragGesture()
+            .onChanged { value in
+                print(value.translation.height)
+                let offset = value.translation.height
+                if offset > 0 {
+                    dragOffset = value.translation.height
+                }
+            }
+            .onEnded { value in
+                if dragOffset >= 150 {
+                    dismiss()
+                } else {
+                    dragOffset = 0
+                }
+            }
+    }
+    
+    func dismiss() {
+        withAnimation {
+            isPresented = false
+            dragOffset = 0
+        }
+    }
     
     public func body(content: Content) -> some View {
         ZStack {
@@ -23,9 +49,7 @@ public struct HalfSheet<Sheet>: ViewModifier where Sheet: View {
                 
                 VStack(alignment: .leading) {
                     Button {
-                        withAnimation {
-                            self.isPresented = false
-                        }
+                        dismiss()
                     } label: {
                         Image(systemName: style.closeImage)
                             .foregroundColor(style.closeImageColor)
@@ -37,6 +61,7 @@ public struct HalfSheet<Sheet>: ViewModifier where Sheet: View {
                         .padding(.bottom, 16)
                 }
                 .background(style.backgroundColor)
+                .cardView(cornerRadius: style.cornerRadius)
                 .frame(
                     minWidth: 0,
                     maxWidth: .infinity,
@@ -44,6 +69,12 @@ public struct HalfSheet<Sheet>: ViewModifier where Sheet: View {
                     maxHeight: .infinity,
                     alignment: .bottom)
                 .transition(.move(edge: .bottom))
+                .offset(y: dragOffset)
+                .opacity(2 - Double(dragOffset / 50))
+                .if(!style.disableDragDismiss, transform: { view in
+                    view
+                        .simultaneousGesture(dragGesture)
+                })
                 .ignoresSafeArea()
             }
         }
@@ -51,7 +82,9 @@ public struct HalfSheet<Sheet>: ViewModifier where Sheet: View {
 }
 
 extension View {
-    func halfSheet<Sheet: View>(isPresented: Binding<Bool>, style: HalfSheetStyle = DefaultStyle(), @ViewBuilder sheet: @escaping () -> Sheet) -> some View {
+    func halfSheet<Sheet: View>(isPresented: Binding<Bool>,
+                                style: HalfSheetStyle = DefaultStyle(),
+                                @ViewBuilder sheet: @escaping () -> Sheet) -> some View {
         modifier(HalfSheet(isPresented: isPresented, style: style, sheet: sheet))
     }
 }

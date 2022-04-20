@@ -13,6 +13,7 @@ public protocol HalfSheetStyle {
     var closeImageColor: Color { get }
     var closeImage: String { get }
     var disableDragDismiss: Bool { get }
+    var cornerRadius: CGFloat { get }
 }
 
 struct DefaultStyle: HalfSheetStyle {
@@ -34,5 +35,9 @@ struct DefaultStyle: HalfSheetStyle {
     
     var disableDragDismiss: Bool {
         false
+    }
+    
+    var cornerRadius: CGFloat {
+        20.0
     }
 }

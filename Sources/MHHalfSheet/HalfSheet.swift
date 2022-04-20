@@ -85,7 +85,7 @@ public struct HalfSheet<Sheet>: ViewModifier where Sheet: View {
 }
 
 extension View {
-    func halfSheet<Sheet: View>(isPresented: Binding<Bool>,
+    public func halfSheet<Sheet: View>(isPresented: Binding<Bool>,
                                 style: HalfSheetStyle = DefaultStyle(),
                                 @ViewBuilder sheet: @escaping () -> Sheet) -> some View {
         modifier(HalfSheet(isPresented: isPresented, style: style, sheet: sheet))

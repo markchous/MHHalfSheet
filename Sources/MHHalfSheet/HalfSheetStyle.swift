@@ -11,40 +11,53 @@ public protocol HalfSheetStyle {
     var overlayColor: Color { get }
     var backgroundColor: Color { get }
     var closeImageColor: Color { get }
-    var closeImage: String { get }
     var disableDragDismiss: Bool { get }
     var disableCardView: Bool { get }
-    var cornerRadius: CGFloat { get }
+    var closeImage: String? { get }
+    var cornerRadius: CGFloat? { get }
+    var dragOffset: CGFloat? { get }
+    var padding: CGFloat? { get }
+    var opacity: Double? { get }
 }
 
-public struct DefaultStyle: HalfSheetStyle {
-    public var overlayColor: Color {
+struct DefaultStyle: HalfSheetStyle {
+    var overlayColor: Color {
         .black
     }
     
-    public var backgroundColor: Color {
+    var backgroundColor: Color {
         .white
     }
     
-    public var closeImage: String {
-        "x.circle.full"
-    }
-    
-    public var closeImageColor: Color {
+    var closeImageColor: Color {
         .black
     }
     
-    public var disableDragDismiss: Bool {
+    var disableDragDismiss: Bool {
         false
     }
     
-    public var disableCardView: Bool {
+    var disableCardView: Bool {
         false
     }
     
-    public var cornerRadius: CGFloat {
-        20.0
+    var closeImage: String? {
+        Constants.closeImage
     }
     
-    public init() { }
+    var cornerRadius: CGFloat? {
+        Constants.cornerRadius
+    }
+    
+    var dragOffset: CGFloat? {
+        Constants.dragOffsetDismiss
+    }
+    
+    var padding: CGFloat? {
+        Constants.padding
+    }
+    
+    var opacity: Double? {
+        Constants.opacity
+    }
 }

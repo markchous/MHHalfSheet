@@ -13,14 +13,14 @@ public protocol HalfSheetStyle {
     var closeImageColor: Color { get }
     var disableDragDismiss: Bool { get }
     var disableCardView: Bool { get }
-    var closeImage: String? { get }
-    var cornerRadius: CGFloat? { get }
-    var dragOffset: CGFloat? { get }
-    var padding: CGFloat? { get }
-    var opacity: Double? { get }
+    var closeImage: String { get }
+    var cornerRadius: CGFloat { get }
+    var dragOffset: CGFloat { get }
+    var padding: CGFloat { get }
+    var opacity: Double { get }
 }
 
-struct DefaultStyle: HalfSheetStyle {
+public extension HalfSheetStyle {
     var overlayColor: Color {
         .black
     }
@@ -33,6 +33,10 @@ struct DefaultStyle: HalfSheetStyle {
         .black
     }
     
+    var closeImage: String {
+        Constants.closeImage
+    }
+    
     var disableDragDismiss: Bool {
         false
     }
@@ -41,23 +45,21 @@ struct DefaultStyle: HalfSheetStyle {
         false
     }
     
-    var closeImage: String? {
-        Constants.closeImage
-    }
-    
-    var cornerRadius: CGFloat? {
+    var cornerRadius: CGFloat {
         Constants.cornerRadius
     }
     
-    var dragOffset: CGFloat? {
+    var dragOffset: CGFloat {
         Constants.dragOffsetDismiss
     }
     
-    var padding: CGFloat? {
+    var padding: CGFloat {
         Constants.padding
     }
     
-    var opacity: Double? {
+    var opacity: Double {
         Constants.opacity
     }
 }
+
+struct DefaultStyle: HalfSheetStyle { }

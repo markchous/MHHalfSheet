@@ -14,18 +14,6 @@ public struct HalfSheet<Sheet>: ViewModifier where Sheet: View {
     var style: HalfSheetStyle
     var sheet: () -> Sheet
     
-    var dragOffsetDismiss: CGFloat {
-        style.dragOffset ?? Constants.dragOffsetDismiss
-    }
-    var paddingValue: CGFloat {
-        style.padding ?? Constants.padding
-    }
-    var cornerRadius: CGFloat {
-        style.cornerRadius ?? Constants.cornerRadius
-    }
-    var opacity: Double {
-        style.opacity ?? Constants.opacity
-    }
     var dragGesture: some Gesture {
         return DragGesture()
             .onChanged { value in
@@ -35,7 +23,7 @@ public struct HalfSheet<Sheet>: ViewModifier where Sheet: View {
                 }
             }
             .onEnded { value in
-                if dragOffset >= dragOffsetDismiss {
+                if dragOffset >= style.dragOffset {
                     dismiss()
                 } else {
                     dragOffset = 0
@@ -53,10 +41,10 @@ public struct HalfSheet<Sheet>: ViewModifier where Sheet: View {
     public func body(content: Content) -> some View {
         ZStack {
             content
-            
+               
             if isPresented {
                 style.overlayColor
-                    .opacity(opacity)
+                    .opacity(style.opacity)
                     .ignoresSafeArea()
                 
                 VStack(alignment: .leading) {
@@ -67,32 +55,37 @@ public struct HalfSheet<Sheet>: ViewModifier where Sheet: View {
                             Image(systemName: closeImage)
                                 .foregroundColor(style.closeImageColor)
                         }
-                        .padding(.horizontal, paddingValue)
-                        .padding(.top, paddingValue)
+                        .padding(.horizontal, style.padding)
+                        .padding(.top, style.padding)
                     }
                     
                     sheet()
-                        .padding(.bottom, paddingValue)
+                        .padding(.bottom, style.padding)
+                        .frame(
+                            minWidth: 0,
+                            maxWidth: .infinity,
+                            alignment: .bottom)
                 }
+                .zIndex(1)
                 .background(style.backgroundColor)
                 .if(!style.disableCardView, transform: { view in
                     view
-                        .cardView(cornerRadius: cornerRadius)
+                        .cardView(cornerRadius: style.cornerRadius)
                 })
-                .frame(
-                    minWidth: 0,
-                    maxWidth: .infinity,
-                    minHeight: 0,
-                    maxHeight: .infinity,
-                    alignment: .bottom)
-                .transition(.move(edge: .bottom))
-                .offset(y: dragOffset)
-                .opacity(2 - Double(dragOffset / 50))
-                .if(!style.disableDragDismiss, transform: { view in
-                    view
-                        .simultaneousGesture(dragGesture)
-                })
-                .ignoresSafeArea()
+                    .frame(
+                        minWidth: 0,
+                        maxWidth: .infinity,
+                        minHeight: 0,
+                        maxHeight: .infinity,
+                        alignment: .bottom)
+                        .transition(.move(edge: .bottom))
+                        .offset(y: dragOffset)
+                        .opacity(2 - Double(dragOffset / 50))
+                        .if(!style.disableDragDismiss, transform: { view in
+                            view
+                                .simultaneousGesture(dragGesture)
+                        })
+                            .ignoresSafeArea()
             }
         }
     }
@@ -100,8 +93,8 @@ public struct HalfSheet<Sheet>: ViewModifier where Sheet: View {
 
 extension View {
     public func halfSheet<Sheet: View>(isPresented: Binding<Bool>,
-                                style: HalfSheetStyle? = nil,
-                                @ViewBuilder sheet: @escaping () -> Sheet) -> some View {
+                                       style: HalfSheetStyle? = nil,
+                                       @ViewBuilder sheet: @escaping () -> Sheet) -> some View {
         modifier(HalfSheet(isPresented: isPresented, style: style ?? DefaultStyle(), sheet: sheet))
     }
 }

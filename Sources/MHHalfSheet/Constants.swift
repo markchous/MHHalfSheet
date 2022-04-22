@@ -8,6 +8,9 @@
 import Foundation
 import SwiftUI
 
+/**
+ Default values for customization.
+ */
 struct Constants {
     static let dragOffsetDismiss: CGFloat = 150
     static let padding: CGFloat = 16

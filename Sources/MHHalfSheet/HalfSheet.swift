@@ -78,11 +78,12 @@ public struct HalfSheet<Sheet>: ViewModifier where Sheet: View {
                     .allowsHitTesting(false)
                 
                 VStack(alignment: .leading) {
-                    if let closeImage = style.closeImage {
+                    // Add close button if image name is present.
+                    if let closeImageName = style.closeImageName {
                         Button {
                             dismiss()
                         } label: {
-                            Image(systemName: closeImage)
+                            Image(systemName: closeImageName)
                                 .foregroundColor(style.closeImageColor)
                         }
                         .padding(.horizontal, style.padding)

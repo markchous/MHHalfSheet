@@ -39,7 +39,7 @@ public protocol HalfSheetStyle {
     /**
      `closeImage` will change the system image of the close button. This only accepts the name of system images.
      */
-    var closeImage: String { get }
+    var closeImageName: String { get }
     
     /**
      `cornerRadius` will change the `cornerRadius` of the `CardView` if it's enabled.
@@ -78,8 +78,8 @@ public extension HalfSheetStyle {
         .black
     }
     
-    var closeImage: String {
-        Constants.closeImage
+    var closeImageName: String {
+        Constants.closeImageName
     }
     
     var disableDragDismiss: Bool {

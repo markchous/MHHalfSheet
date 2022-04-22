@@ -16,5 +16,5 @@ struct Constants {
     static let padding: CGFloat = 16
     static let cornerRadius: CGFloat = 20
     static let opacity: Double = 0.8
-    static let closeImage: String = "x.circle.fill"
+    static let closeImageName: String = "x.circle.fill"
 }

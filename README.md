@@ -122,3 +122,7 @@ Create a computed property (or use isPresented) on your ToolBarItems directly as
         }
     }
   ```
+  
+# License
+  
+Distributed under the MIT license. See LICENSE for more information.

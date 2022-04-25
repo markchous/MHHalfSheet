@@ -22,24 +22,9 @@ public protocol HalfSheetStyle {
     var backgroundColor: Color { get }
     
     /**
-     `closeImageColor` will change the foreground color of the close image button.
-     */
-    var closeImageColor: Color { get }
-    
-    /**
-     `disableDragDismiss` will disable the drag to dismiss ability if set to true.
-     */
-    var disableDragDismiss: Bool { get }
-    
-    /**
      `disableCardView` will remove the `CardView` styling from the half sheet modal.
      */
     var disableCardView: Bool { get }
-    
-    /**
-     `closeImage` will change the system image of the close button. This only accepts the name of system images.
-     */
-    var closeImageName: String { get }
     
     /**
      `cornerRadius` will change the `cornerRadius` of the `CardView` if it's enabled.
@@ -72,18 +57,6 @@ public extension HalfSheetStyle {
     
     var backgroundColor: Color {
         .white
-    }
-    
-    var closeImageColor: Color {
-        .black
-    }
-    
-    var closeImageName: String {
-        Constants.closeImageName
-    }
-    
-    var disableDragDismiss: Bool {
-        false
     }
     
     var disableCardView: Bool {

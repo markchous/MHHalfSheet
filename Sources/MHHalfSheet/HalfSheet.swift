@@ -77,18 +77,9 @@ public struct HalfSheet<Sheet>: ViewModifier where Sheet: View {
                     .ignoresSafeArea()
                     .allowsHitTesting(false)
                 
-                VStack(alignment: .leading) {
-                    // Add close button if image name is present.
-                    if let closeImageName = style.closeImageName {
-                        Button {
-                            dismiss()
-                        } label: {
-                            Image(systemName: closeImageName)
-                                .foregroundColor(style.closeImageColor)
-                        }
-                        .padding(.horizontal, style.padding)
-                        .padding(.top, style.padding)
-                    }
+                VStack(alignment: .center) {
+                    BarView()
+                        .padding(.top, 16)
                     
                     sheet()
                         .padding(.bottom, style.padding)
@@ -103,20 +94,17 @@ public struct HalfSheet<Sheet>: ViewModifier where Sheet: View {
                     view
                         .cardView(cornerRadius: style.cornerRadius)
                 })
-                    .frame(
-                        minWidth: 0,
-                        maxWidth: .infinity,
-                        minHeight: 0,
-                        maxHeight: .infinity,
-                        alignment: .bottom)
-                        .transition(.move(edge: .bottom))
-                        .offset(y: dragOffset)
-                        .opacity(2 - Double(dragOffset / 50))
-                        .if(!style.disableDragDismiss, transform: { view in
-                            view
-                                .simultaneousGesture(dragGesture)
-                        })
-                            .ignoresSafeArea()
+                .frame(
+                    minWidth: 0,
+                    maxWidth: .infinity,
+                    minHeight: 0,
+                    maxHeight: .infinity,
+                    alignment: .bottom)
+                .transition(.move(edge: .bottom))
+                .offset(y: dragOffset)
+                .opacity(2 - Double(dragOffset / 50))
+                .simultaneousGesture(dragGesture)
+                .ignoresSafeArea()
             }
         }
     }

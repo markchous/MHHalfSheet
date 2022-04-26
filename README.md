@@ -10,7 +10,7 @@ MHHalfSheet is available via Swift Package Manager. To install, search https://g
 
 Here is an example of a default half sheet modal using the `DefaultStyle` included in the framework if you choose to not customize it.
 
-<img src="https://user-images.githubusercontent.com/11300751/164796546-9aef9232-3a25-45f1-a788-5e8c74c31954.png" width="200">
+![halfsheetdemodefault](https://user-images.githubusercontent.com/11300751/164989079-6eaf85ad-bd84-4685-93e4-7bb543b62e54.gif)
 
 The half sheet modal `ViewModifier` takes in three parameters.
 
@@ -94,7 +94,7 @@ To use it properly add the modifier to the parent view of your screen as shown b
 
   ```
   
-<img src="https://user-images.githubusercontent.com/11300751/164799555-2d358920-7718-407d-8450-b5b2144d5d78.png" width="200">
+![halfsheetdemo](https://user-images.githubusercontent.com/11300751/164988976-e4a6d22e-265a-493e-8995-f2cdefba036e.gif)
   
 To present the half modal sheet, simply assign `isHalfModalSheet` to `true` or call `isHalfModalSheet.toggle()`
   
@@ -122,3 +122,7 @@ Create a computed property (or use isPresented) on your ToolBarItems directly as
         }
     }
   ```
+  
+# License
+  
+Distributed under the MIT license. See LICENSE for more information.

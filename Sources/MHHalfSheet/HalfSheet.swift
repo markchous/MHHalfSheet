@@ -75,8 +75,7 @@ public struct HalfSheet<Sheet>: ViewModifier where Sheet: View {
                 style.overlayColor
                     .opacity(style.opacity)
                     .ignoresSafeArea()
-                    .allowsHitTesting(false)
-                
+
                 VStack(alignment: .center) {
                     BarView()
                         .padding(.top, 16)

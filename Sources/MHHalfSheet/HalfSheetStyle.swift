@@ -58,7 +58,7 @@ public extension HalfSheetStyle {
     var backgroundColor: Color {
         .white
     }
-    
+
     var disableCardView: Bool {
         false
     }

@@ -1,5 +1,7 @@
 # MHHalfSheet
 
+[![MIT Licence](https://badges.frapsoft.com/os/mit/mit.svg?v=103)](https://opensource.org/licenses/mit-license.php) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
+
 An easy to use ViewModifier for presenting and dimiss a half sheet modal.
 
 # Install
@@ -10,7 +12,7 @@ MHHalfSheet is available via Swift Package Manager. To install, search https://g
 
 Here is an example of a default half sheet modal using the `DefaultStyle` included in the framework if you choose to not customize it.
 
-![halfsheetdemodefault](https://user-images.githubusercontent.com/11300751/164989079-6eaf85ad-bd84-4685-93e4-7bb543b62e54.gif)
+![halfsheetdemo_bar](https://user-images.githubusercontent.com/11300751/165330009-aa394784-d775-4d8a-bf66-402a455ee662.gif)
 
 The half sheet modal `ViewModifier` takes in three parameters.
 
@@ -58,10 +60,6 @@ To use it properly add the modifier to the parent view of your screen as shown b
         .mint
     }
     
-    var closeImageColor: Color {
-        .red
-    }
-    
     var dragOffset: CGFloat {
         100
     }
@@ -94,7 +92,7 @@ To use it properly add the modifier to the parent view of your screen as shown b
 
   ```
   
-![halfsheetdemo](https://user-images.githubusercontent.com/11300751/164988976-e4a6d22e-265a-493e-8995-f2cdefba036e.gif)
+![halfsheetdemocustom_bar](https://user-images.githubusercontent.com/11300751/165330140-dbd93999-c396-487d-94ad-7db05cdc1e5e.gif)
   
 To present the half modal sheet, simply assign `isHalfModalSheet` to `true` or call `isHalfModalSheet.toggle()`
   
@@ -102,7 +100,7 @@ To present the half modal sheet, simply assign `isHalfModalSheet` to `true` or c
   
 If you are using a NavigationView, the ToolBar items will be on top of the overlay when the half sheet modal is presented. Whichs means they're tappable. If you do not want them to be tappable I suggest the following implementation.
   
-Create a computed property (or use isPresented) on your ToolBarItems directly as such.
+Use your variable that captures the presented state of the half sheet modal to toggle if the ToolBarItems are disabled. I use `isHalfModalSheetPresented` in this example.
   
   ```
   var body: some View {

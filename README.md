@@ -1,6 +1,6 @@
 # MHHalfSheet
 
-[![MIT Licence](https://badges.frapsoft.com/os/mit/mit.svg?v=103)](https://opensource.org/licenses/mit-license.php) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
+![MIT Licence](https://badges.frapsoft.com/os/mit/mit.svg?v=103) ![Tag](https://img.shields.io/github/v/tag/markchous/MHHalfSheet?color=red) ![Issues](https://img.shields.io/github/issues/markchous/MHHalfSheet?color=orange)
 
 An easy to use ViewModifier for presenting and dimiss a half sheet modal.
 
